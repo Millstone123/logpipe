@@ -4,6 +4,27 @@ A small, composable CLI for tailing, filtering, and reshaping structured log str
 
 `logpipe` is intentionally tiny — no daemon, no config server, no database. It reads lines, applies a chain of transforms, and writes them back out. It plays nicely with `jq`, `grep`, and anything else that speaks newline-delimited text.
 
+## Getting started
+
+To get started:
+
+1. Clone the repo and change into it:
+
+   ```bash
+   git clone https://github.com/Millstone123/logpipe.git
+   cd logpipe
+   ```
+
+2. Look at the bundled sample database at `data/events.db` to get a feel for the data — it's an `events` table of api-gateway, auth, billing, and worker records.
+
+3. Run a summary over the sample to see logpipe in action:
+
+   ```bash
+   logpipe db data/events.db --summary
+   ```
+
+4. Point it at your own logs and start building a transform chain.
+
 ## Why
 
 Most log tooling assumes you're shipping everything to a central store. A lot of the time you just want to poke at a file on one box: drop the noisy lines, pull out the three fields you care about, and watch what's happening right now. That's what this is for.
