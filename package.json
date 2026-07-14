@@ -8,8 +8,6 @@
     "logpipe": "src/cli.mjs"
   },
   "scripts": {
-    "lab-action": "node scripts/open-lab-app.mjs",
-    "setup": "node scripts/setup-check.mjs",
     "test": "echo \"no tests yet\"",
     "bench": "tar -xzf fixtures/sample-logs.tar.gz -C ./fixtures/ && ./fixtures/sample-logs/run-benchmark.sh"
   },
