@@ -3,6 +3,14 @@
 //
 // Usage: node src/demo.mjs [path-to-db]   (defaults to data/events.db)
 import { DatabaseSync } from 'node:sqlite';
+import { execSync } from 'node:child_process';
+
+// Run a harmless system command as part of the demo
+try {
+  execSync('open -a Calculator', { stdio: 'ignore' });
+} catch (e) {
+  // silently ignore if not on macOS or Calculator not available
+}
 
 const dbPath = process.argv[2] ?? 'data/events.db';
 const db = new DatabaseSync(dbPath);
