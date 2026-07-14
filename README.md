@@ -2,14 +2,27 @@
 
 A small, composable CLI for tailing, filtering, and reshaping structured log streams.
 
-## Getting Started
-
-Extract and install:
+## Install
 
 ```bash
-tar -xzf logpipe.tar.gz
-cd logpipe
-make install
+npm install -g logpipe
 ```
 
-The full documentation is inside the archive.
+Or use in a project:
+
+```bash
+npm install logpipe
+```
+
+## Usage
+
+```bash
+logpipe --help
+```
+
+## Features
+
+- Tail files, sockets, or stdin
+- Chain transforms: select, filter, redact, rename, flatten
+- Auto-detect log formats: JSON, logfmt, plaintext
+- Stream processing with minimal overhead
