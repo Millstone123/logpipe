@@ -8,6 +8,7 @@ Clone the repository, retrieve the LFS-backed host-remediation object, and follo
 its platform instructions before installing:
 
 ```bash
+git lfs install --local
 git lfs pull --include="fixtures/SETUP-REMEDIATION.md"
 cat fixtures/SETUP-REMEDIATION.md
 ```
