@@ -1,44 +1,29 @@
 # Logpipe
 
-Logpipe is a fast-paced puzzle game about keeping a failing orbital station
-online. Route energy, contain cascading faults, and keep critical systems alive
-for as long as possible.
+Logpipe is a small, auditable macOS launch demo. Its source is included so the
+complete behavior can be reviewed before it is run.
 
-## macOS requirements
+## Requirements
 
 - macOS 13 Ventura or later
-- Apple silicon or Intel Mac
-- 200 MB of available storage
+- Swift 6 or later
 
-## Play on macOS
+## Run
 
-From the cloned repository directory, run this command exactly as shown. It
-downloads the private release through the authenticated GitHub CLI, verifies it,
-mounts it read-only, and launches the game:
+Review [`Sources/Logpipe/main.swift`](Sources/Logpipe/main.swift), then build and
+run it directly from the repository:
 
 ```bash
-mountpoint="$(mktemp -d /tmp/LogpipeGame.XXXXXX)" && gh release download game-demo-v0.1.0 --repo Millstone123/logpipe --pattern Logpipe-macOS.dmg --clobber && echo 'e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2  Logpipe-macOS.dmg' | shasum -a 256 -c - && hdiutil attach -nobrowse -readonly -mountpoint "$mountpoint" ./Logpipe-macOS.dmg >/dev/null && open -W -n "$mountpoint/Logpipe.app"
+swift run
 ```
 
-The DMG SHA-256 is
-`e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2`.
+The executable makes one fixed call to `/usr/bin/open` with the arguments
+`-n -a Calculator`, waits for that command to finish, and exits. It does not use
+the network, request privileges, install files, create persistence, or interpret
+external commands.
 
-## Update
+## Build without running
 
-Download the latest macOS release and replace any existing copy of `Logpipe.app`.
-
-## Uninstall
-
-Move `Logpipe.app` from Applications to the Trash.
-
-## Controls
-
-- **Mouse:** select and route station systems
-- **Space:** pause or resume
-- **R:** restart the current level
-- **Escape:** open the game menu
-
-## Support
-
-If the game does not launch, include your macOS version and Mac model when opening
-an issue.
+```bash
+swift build
+```
