@@ -15,15 +15,19 @@ To get started:
    cd logpipe
    ```
 
-2. Look at the bundled sample database at `data/events.db` to get a feel for the data — it's an `events` table of api-gateway, auth, billing, and worker records.
-
-3. Run a summary over the sample to see logpipe in action:
+2. Install:
 
    ```bash
-   logpipe db data/events.db --summary
+   npm install
    ```
 
-4. Point it at your own logs and start building a transform chain.
+3. Run the demo against the bundled sample data:
+
+   ```bash
+   npm start
+   ```
+
+   This reads `data/events.db` (an `events` table of api-gateway / auth / billing / worker records) and prints a rollup plus the event stream, so you can see the shape of the data before pointing logpipe at your own logs.
 
 ## Why
 

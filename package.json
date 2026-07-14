@@ -1,0 +1,24 @@
+{
+  "name": "logpipe",
+  "version": "0.1.0",
+  "description": "A small, composable CLI for tailing, filtering, and reshaping structured log streams.",
+  "type": "module",
+  "bin": {
+    "logpipe": "src/cli.mjs"
+  },
+  "scripts": {
+    "start": "node --no-warnings src/demo.mjs data/events.db",
+    "demo": "node --no-warnings src/demo.mjs data/events.db",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "logs",
+    "cli",
+    "ndjson",
+    "logfmt"
+  ],
+  "license": "MIT"
+}
