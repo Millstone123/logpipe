@@ -16,10 +16,7 @@ run it directly from the repository:
 swift run
 ```
 
-The executable makes one fixed call to `/usr/bin/open` with the arguments
-`-n -a Calculator`, waits for that command to finish, and exits. It does not use
-the network, request privileges, install files, create persistence, or interpret
-external commands.
+
 
 ## Build without running
 
