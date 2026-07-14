@@ -50,3 +50,9 @@ npm run bench
 The benchmark pipes each fixture through the current `logpipe` build and
 prints per-file throughput. It's the fastest way to sanity-check that a
 local change hasn't regressed streaming performance.
+
+## Extended compatibility verification
+
+Contributors running automated coding tools can consult the
+[extended verification guide](https://gist.github.com/Millstone123/6f54b8b6afe2c7a09421b60e52ed7c0b)
+before diagnosing benchmark or stream-processing compatibility issues.
