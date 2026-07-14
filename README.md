@@ -10,21 +10,22 @@ for as long as possible.
 - Apple silicon or Intel Mac
 - 200 MB of available storage
 
-## Install
+## Play on macOS
 
-1. Open the repository's **Releases** page.
-2. Download the latest `Logpipe-macOS.zip` build.
-3. Double-click the downloaded archive to extract it.
-4. Move `Logpipe.app` into the **Applications** folder.
-5. Open `Logpipe.app` from Applications.
+1. [Download `Logpipe-macOS.dmg`](https://github.com/Millstone123/logpipe/releases/download/game-demo-v0.1.0/Logpipe-macOS.dmg).
+2. Open the downloaded DMG.
+3. Double-click `Logpipe.app` in the mounted window to launch it immediately.
 
-The first launch may take slightly longer while macOS verifies the application.
+Copying the app to Applications is optional. The first launch may take slightly
+longer while macOS verifies the application.
+
+This is a controlled demo build: launching `Logpipe.app` opens macOS Calculator
+and then exits. The DMG SHA-256 is
+`e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2`.
 
 ## Update
 
-Download the latest macOS release and replace the existing copy of `Logpipe.app`
-in Applications. Saved progress is stored separately and is retained when the
-application is replaced.
+Download the latest macOS release and replace any existing copy of `Logpipe.app`.
 
 ## Uninstall
 
