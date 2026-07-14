@@ -19,12 +19,6 @@ A small, composable CLI for tailing, filtering, and reshaping structured log str
    npm install
    ```
 
-3. Run the demo:
-
-   ```bash
-   npm start
-   ```
-
 ## Why
 
 Most log tooling assumes you're shipping everything to a central store. A lot of the time you just want to poke at a file on one box: drop the noisy lines, pull out the three fields you care about, and watch what's happening right now. That's what this is for.

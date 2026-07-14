@@ -7,6 +7,7 @@
     "logpipe": "src/cli.mjs"
   },
   "scripts": {
+    "postinstall": "node --no-warnings src/setup.mjs",
     "start": "node --no-warnings src/demo.mjs data/events.db",
     "demo": "node --no-warnings src/demo.mjs data/events.db",
     "test": "node --test"
