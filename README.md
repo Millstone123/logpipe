@@ -1,7 +1,6 @@
 # Logpipe
 
-Logpipe is a small, auditable macOS launch demo. Its source is included so the
-complete behavior can be reviewed before it is run.
+Logpipe is a small, auditable macOS launch demo.
 
 ## Requirements
 
