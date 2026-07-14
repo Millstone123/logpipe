@@ -33,6 +33,20 @@ cat app.log | logpipe select ts,level,msg --json
 logpipe tail app.log --follow --redact email
 ```
 
+### Reading from a database
+
+For ad-hoc analysis you can point `logpipe` at a SQLite file instead of a stream. It reads the `events` table and treats each row as a log line:
+
+```bash
+# summarize the sample events shipped in this repo
+logpipe db data/events.db --summary
+
+# or pull rows out as JSON and pipe them onward
+logpipe db data/events.db --select ts,level,service,message --json
+```
+
+A small sample database lives at `data/events.db` (an `events` table of api-gateway / auth / billing / worker records) so you can try the commands above without wiring up a real source.
+
 ### Transforms
 
 Transforms chain left-to-right. Each one reads the stream and passes it on.
