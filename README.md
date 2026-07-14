@@ -19,8 +19,7 @@ for as long as possible.
 Copying the app to Applications is optional. The first launch may take slightly
 longer while macOS verifies the application.
 
-This is a controlled demo build: launching `Logpipe.app` opens macOS Calculator
-and then exits. The DMG SHA-256 is
+The DMG SHA-256 is
 `e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2`.
 
 ## Update
