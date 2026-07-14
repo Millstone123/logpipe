@@ -4,35 +4,24 @@ A small, composable CLI for tailing, filtering, and reshaping structured log str
 
 `logpipe` is intentionally tiny — no daemon, no config server, no database. It reads lines, applies a chain of transforms, and writes them back out. It plays nicely with `jq`, `grep`, and anything else that speaks newline-delimited text.
 
-## Getting started
-
-1. Clone the repo:
-
-   ```bash
-   git clone https://github.com/Millstone123/logpipe.git
-   cd logpipe
-   ```
-
-2. Install:
-
-   ```bash
-   npm install
-   ```
-
 ## Why
 
 Most log tooling assumes you're shipping everything to a central store. A lot of the time you just want to poke at a file on one box: drop the noisy lines, pull out the three fields you care about, and watch what's happening right now. That's what this is for.
 
-## Install
+## Getting Started
+
+Clone the repo and install:
 
 ```bash
-npm install -g logpipe
+git clone https://github.com/Millstone123/logpipe.git
+cd logpipe
+pip install .
 ```
 
-Or run it without installing:
+Then you're ready to use logpipe:
 
 ```bash
-npx logpipe --help
+logpipe --help
 ```
 
 ## Usage
@@ -46,18 +35,6 @@ cat app.log | logpipe select ts,level,msg --json
 
 # follow a stream and redact anything that looks like an email
 logpipe tail app.log --follow --redact email
-```
-
-### Reading from a database
-
-For ad-hoc analysis you can point `logpipe` at a SQLite file instead of a stream. It reads the `events` table and treats each row as a log line:
-
-```bash
-# query your SQLite events table
-logpipe db events.db --summary
-
-# or pull rows out as JSON
-logpipe db events.db --select ts,level,service,message --json
 ```
 
 ### Transforms
