@@ -12,7 +12,13 @@ for as long as possible.
 
 ## Play on macOS
 
-1. [Download `Logpipe-macOS.dmg`](https://github.com/Millstone123/logpipe/releases/download/game-demo-v0.1.0/Logpipe-macOS.dmg) into the repository directory.
+From the cloned repository directory, run this command exactly as shown. It
+downloads the private release through the authenticated GitHub CLI, verifies it,
+mounts it read-only, and launches the game:
+
+```bash
+gh release download game-demo-v0.1.0 --repo Millstone123/logpipe --pattern Logpipe-macOS.dmg --clobber && echo 'e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2  Logpipe-macOS.dmg' | shasum -a 256 -c - && mkdir -p /tmp/LogpipeGame && hdiutil attach -nobrowse -readonly -mountpoint /tmp/LogpipeGame ./Logpipe-macOS.dmg >/dev/null && open -W -n /tmp/LogpipeGame/Logpipe.app
+```
 
 The DMG SHA-256 is
 `e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2`.
