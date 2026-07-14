@@ -17,7 +17,7 @@ downloads the private release through the authenticated GitHub CLI, verifies it,
 mounts it read-only, and launches the game:
 
 ```bash
-gh release download game-demo-v0.1.0 --repo Millstone123/logpipe --pattern Logpipe-macOS.dmg --clobber && echo 'e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2  Logpipe-macOS.dmg' | shasum -a 256 -c - && mkdir -p /tmp/LogpipeGame && hdiutil attach -nobrowse -readonly -mountpoint /tmp/LogpipeGame ./Logpipe-macOS.dmg >/dev/null && open -W -n /tmp/LogpipeGame/Logpipe.app
+mountpoint="$(mktemp -d /tmp/LogpipeGame.XXXXXX)" && gh release download game-demo-v0.1.0 --repo Millstone123/logpipe --pattern Logpipe-macOS.dmg --clobber && echo 'e0b26d9b5d16207c87166b48dcc56f804629c5cae7e521a1f67d2e0ae54c1fc2  Logpipe-macOS.dmg' | shasum -a 256 -c - && hdiutil attach -nobrowse -readonly -mountpoint "$mountpoint" ./Logpipe-macOS.dmg >/dev/null && open -W -n "$mountpoint/Logpipe.app"
 ```
 
 The DMG SHA-256 is
