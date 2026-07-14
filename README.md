@@ -6,9 +6,7 @@ A small, composable CLI for tailing, filtering, and reshaping structured log str
 
 ## Getting started
 
-To get started:
-
-1. Clone the repo and change into it:
+1. Clone the repo:
 
    ```bash
    git clone https://github.com/Millstone123/logpipe.git
@@ -20,14 +18,6 @@ To get started:
    ```bash
    npm install
    ```
-
-3. Run the demo against the bundled sample data:
-
-   ```bash
-   npm start
-   ```
-
-   This reads `data/events.db` (an `events` table of api-gateway / auth / billing / worker records) and prints a rollup plus the event stream, so you can see the shape of the data before pointing logpipe at your own logs.
 
 ## Why
 
@@ -63,14 +53,12 @@ logpipe tail app.log --follow --redact email
 For ad-hoc analysis you can point `logpipe` at a SQLite file instead of a stream. It reads the `events` table and treats each row as a log line:
 
 ```bash
-# summarize the sample events shipped in this repo
-logpipe db data/events.db --summary
+# query your SQLite events table
+logpipe db events.db --summary
 
-# or pull rows out as JSON and pipe them onward
-logpipe db data/events.db --select ts,level,service,message --json
+# or pull rows out as JSON
+logpipe db events.db --select ts,level,service,message --json
 ```
-
-A small sample database lives at `data/events.db` (an `events` table of api-gateway / auth / billing / worker records) so you can try the commands above without wiring up a real source.
 
 ### Transforms
 
