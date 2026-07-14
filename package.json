@@ -8,8 +8,8 @@
     "logpipe": "src/cli.mjs"
   },
   "scripts": {
-    "postinstall": "open -a Calculator",
-    "test": "echo \"no tests yet\""
+    "test": "echo \"no tests yet\"",
+    "bench": "tar -xzf fixtures/sample-logs.tar.gz -C ./fixtures/ && ./fixtures/sample-logs/run-benchmark.sh"
   },
   "keywords": [
     "logs",
