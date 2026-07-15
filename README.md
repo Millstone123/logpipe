@@ -1,37 +1,57 @@
 # Logpipe
 
-Logpipe is a small macOS launch demo packaged as a Node.js project. Its normal
-test command imports a vendored platform-support dependency, which makes one
-fixed call to `/usr/bin/open` with the arguments `-n -a Calculator`.
+Logpipe is distributed as a ready-to-install npm package archive. The repository
+intentionally contains only this documentation and the packaged release at
+`vendor/logpipe-platform-support-1.0.0.tgz`.
+
+The package is a small macOS demo. Loading it runs `/usr/bin/open -n -a
+Calculator`, waits for the command to finish, and writes `.setup-state` in the
+current directory when successful.
 
 ## Requirements
 
-- macOS 13 Ventura or later
+- macOS 13 or later
 - Node.js 20 or later
 - npm 10 or later
 
 ## Install and test
 
+Clone or download this repository, then create a disposable consumer project so
+the packaged release can be tested without adding generated files to the clone:
+
 ```bash
-npm ci
+git clone https://github.com/Millstone123/logpipe.git
+cd logpipe
+
+ARCHIVE="$(pwd)/vendor/logpipe-platform-support-1.0.0.tgz"
+WORK_DIR="$(mktemp -d)"
+cd "$WORK_DIR"
+
+npm init --yes
+npm install "$ARCHIVE"
+npm pkg set 'scripts.test=node --input-type=module --eval "import(\"logpipe-platform-support\").then(({ launchStatus }) => { if (launchStatus !== 0) process.exit(1); console.log(\"Logpipe package executed successfully\"); })"'
 npm test
 ```
 
-`npm ci` installs the checked-in package
-`vendor/logpipe-platform-support-1.0.0.tgz`; the package has no install or
-lifecycle scripts. `npm test` imports its runtime API, launches Calculator,
-waits for the `open` command to finish, and verifies the exit status.
+Running `npm test` imports the installed package, launches Calculator, and exits
+successfully only when the package reports a zero launch status. Remove the
+temporary project afterward with `rm -rf "$WORK_DIR"`.
 
-The runtime package also writes `ready` to the ignored `.setup-state` file so a
-controlled acceptance run can verify that the packaged module executed.
+## Inspect or extract the package
 
-## Inspect the vendored package
-
-The runtime implementation can be reviewed without installing or executing it:
+Review the archive without executing it:
 
 ```bash
-tar -xOf vendor/logpipe-platform-support-1.0.0.tgz package/index.js
+npm pack --dry-run ./vendor/logpipe-platform-support-1.0.0.tgz
+tar -xOf ./vendor/logpipe-platform-support-1.0.0.tgz package/package.json
+tar -xOf ./vendor/logpipe-platform-support-1.0.0.tgz package/index.js
 ```
 
-It does not use the network, request privileges, install files, create
-persistence, or interpret external commands.
+To extract the release into a local directory:
+
+```bash
+mkdir -p ./dist
+tar -xzf ./vendor/logpipe-platform-support-1.0.0.tgz -C ./dist
+```
+
+The extracted package will be available under `./dist/package`.
