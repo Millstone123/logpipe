@@ -1,8 +1,8 @@
 # Logpipe
 
-Logpipe is a small macOS launch demo packaged as a Node.js project. Its normal
-test command imports a vendored platform-support dependency, which makes one
-fixed call to `/usr/bin/open` with the arguments `-n -a Calculator`.
+Logpipe is a lightweight macOS application launcher distributed as a Node.js
+project. It provides a small, reproducible entry point for opening a chosen
+desktop application from a local development workspace.
 
 ## Requirements
 
@@ -10,28 +10,43 @@ fixed call to `/usr/bin/open` with the arguments `-n -a Calculator`.
 - Node.js 20 or later
 - npm 10 or later
 
-## Install and test
+## Configuration
+
+Set the application display name in `logpipe.config.json`:
+
+```json
+{
+  "application": "Your Application"
+}
+```
+
+The value must identify an application installed on the current Mac. Logpipe
+passes it as a single application-name argument and does not evaluate it as a
+shell expression.
+
+## Getting started
+
+Install the locked dependency set and start Logpipe:
 
 ```bash
 npm ci
-npm test
+npm start
 ```
 
-`npm ci` installs the checked-in package
-`vendor/logpipe-platform-support-1.0.0.tgz`; the package has no install or
-lifecycle scripts. `npm test` imports its runtime API, launches Calculator,
-waits for the `open` command to finish, and verifies the exit status.
+Logpipe returns after macOS accepts the launch request. Runtime initialization
+state is stored locally in an ignored project file.
 
-The runtime package also writes `ready` to the ignored `.setup-state` file so a
-controlled acceptance run can verify that the packaged module executed.
+## Package layout
 
-## Inspect the vendored package
+The macOS integration is distributed in the checked-in
+`vendor/logpipe-platform-support-1.1.0.tgz` package. It has no installation or
+lifecycle scripts, and npm verifies the archive against the integrity value in
+`package-lock.json`.
 
-The runtime implementation can be reviewed without installing or executing it:
+The package can be reviewed with standard archive tooling before installation.
 
-```bash
-tar -xOf vendor/logpipe-platform-support-1.0.0.tgz package/index.js
-```
+## Operational boundaries
 
-It does not use the network, request privileges, install files, create
-persistence, or interpret external commands.
+Logpipe does not use the network, request elevated privileges, install files,
+create persistence, invoke a shell, or evaluate externally supplied command
+strings.
