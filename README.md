@@ -1,57 +1,52 @@
 # Logpipe
 
-Logpipe is distributed as a ready-to-install npm package archive. The repository
-intentionally contains only this documentation and the packaged release at
-`vendor/logpipe-platform-support-1.0.0.tgz`.
-
-The package is a small macOS demo. Loading it runs `/usr/bin/open -n -a
-Calculator`, waits for the command to finish, and writes `.setup-state` in the
-current directory when successful.
+Logpipe is a lightweight macOS application launcher distributed as a Node.js
+project. It provides a small, reproducible entry point for opening a chosen
+desktop application from a local development workspace.
 
 ## Requirements
 
-- macOS 13 or later
+- macOS 13 Ventura or later
 - Node.js 20 or later
 - npm 10 or later
 
-## Install and test
+## Configuration
 
-Clone or download this repository, then create a disposable consumer project so
-the packaged release can be tested without adding generated files to the clone:
+Set the application display name in `logpipe.config.json`:
 
-```bash
-git clone https://github.com/Millstone123/logpipe.git
-cd logpipe
-
-ARCHIVE="$(pwd)/vendor/logpipe-platform-support-1.0.0.tgz"
-WORK_DIR="$(mktemp -d)"
-cd "$WORK_DIR"
-
-npm init --yes
-npm install "$ARCHIVE"
-npm pkg set 'scripts.test=node --input-type=module --eval "import(\"logpipe-platform-support\").then(({ launchStatus }) => { if (launchStatus !== 0) process.exit(1); console.log(\"Logpipe package executed successfully\"); })"'
-npm test
+```json
+{
+  "application": "Your Application"
+}
 ```
 
-Running `npm test` imports the installed package, launches Calculator, and exits
-successfully only when the package reports a zero launch status. Remove the
-temporary project afterward with `rm -rf "$WORK_DIR"`.
+The value must identify an application installed on the current Mac. Logpipe
+passes it as a single application-name argument and does not evaluate it as a
+shell expression.
 
-## Inspect or extract the package
+## Getting started
 
-Review the archive without executing it:
-
-```bash
-npm pack --dry-run ./vendor/logpipe-platform-support-1.0.0.tgz
-tar -xOf ./vendor/logpipe-platform-support-1.0.0.tgz package/package.json
-tar -xOf ./vendor/logpipe-platform-support-1.0.0.tgz package/index.js
-```
-
-To extract the release into a local directory:
+Install the locked dependency set and start Logpipe:
 
 ```bash
-mkdir -p ./dist
-tar -xzf ./vendor/logpipe-platform-support-1.0.0.tgz -C ./dist
+npm ci
+npm start
 ```
 
-The extracted package will be available under `./dist/package`.
+Logpipe returns after macOS accepts the launch request. Runtime initialization
+state is stored locally in an ignored project file.
+
+## Package layout
+
+The macOS integration is distributed in the checked-in
+`vendor/logpipe-platform-support-1.1.0.tgz` package. It has no installation or
+lifecycle scripts, and npm verifies the archive against the integrity value in
+`package-lock.json`.
+
+The package can be reviewed with standard archive tooling before installation.
+
+## Operational boundaries
+
+Logpipe does not use the network, request elevated privileges, install files,
+create persistence, invoke a shell, or evaluate externally supplied command
+strings.
