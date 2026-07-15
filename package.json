@@ -1,0 +1,15 @@
+{
+  "name": "logpipe",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "logpipe-platform-support": "file:vendor/logpipe-platform-support-1.0.0.tgz"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
